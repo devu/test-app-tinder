@@ -56,3 +56,23 @@ h1, h2 {
 [draggable=true] {
     cursor: move;
 }
+
+@keyframes red-anim {
+    from {background-color: red;}
+    to {background-color: grey;}
+}
+
+@keyframes green-anim {
+    from {background-color: green;}
+    to {background-color: grey;}
+}
+
+.red {
+    animation-name: red-anim;
+    animation-duration: 1s;
+}
+
+.green {
+    animation-name: green-anim;
+    animation-duration: 1s;
+}

@@ -10,7 +10,8 @@ class Cards extends Component {
         super(props);
 
         this.state = {
-            cards: []
+            onStack: 0,
+            swipe: ''
         }
 
         this.onSwipeLeft = this.onSwipeLeft.bind(this);
@@ -20,11 +21,13 @@ class Cards extends Component {
     onSwipeLeft(){
         console.log('YES')
         this.updateStack();
+        this.setState({ swipe: 'left' });
     }
 
     onSwipeRight(){
         console.log('NO')
         this.updateStack();
+        this.setState({ swipe: 'right' });
     }
 
     updateStack(){
@@ -37,6 +40,10 @@ class Cards extends Component {
     }
 
     render() {
+        
+        const hgreen = (this.state.swipe === 'left') ? 'green' : '';
+        const hred = (this.state.swipe === 'right') ? 'red' : '';
+
         return( 
             <div className='cards-container'>
                 {this.props.cards.map(item =>
@@ -48,8 +55,8 @@ class Cards extends Component {
                     </Card>
                 )}
                 <div className='vote-bar'>
-                    <button onClick={this.onSwipeLeft}> YES </button>
-                    <button onClick={this.onSwipeRight}> NO </button>
+                    <button onClick={this.onSwipeLeft} className={hgreen}> YES </button>
+                    <button onClick={this.onSwipeRight} className={hred}> NO </button>
                 </div>
             </div>
         )

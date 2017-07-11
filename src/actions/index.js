@@ -1,4 +1,3 @@
-//import axios from 'axios';
 import { SHOW_CARDS } from '../constants/index'
 
 export function showCards(){
