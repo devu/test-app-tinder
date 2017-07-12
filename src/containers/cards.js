@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Card from './card';
+import swipeCard from '../actions/index';
 
 class Cards extends Component {
 
@@ -19,13 +20,11 @@ class Cards extends Component {
     }
 
     onSwipeLeft(){
-        console.log('YES')
         this.updateStack();
         this.setState({ swipe: 'left' });
     }
 
     onSwipeRight(){
-        console.log('NO')
         this.updateStack();
         this.setState({ swipe: 'right' });
     }
@@ -39,6 +38,19 @@ class Cards extends Component {
         }
     }
 
+    populateCards(){
+        return this.props.cards.map(item => {
+            return ( 
+                <Card
+                    onSwipeLeft={this.onSwipeLeft} 
+                    onSwipeRight={this.onSwipeRight}
+                    item={item}
+                    key={item.index}>
+                </Card>
+            );
+        });
+    }
+
     render() {
         
         const hgreen = (this.state.swipe === 'left') ? 'green' : '';
@@ -46,14 +58,7 @@ class Cards extends Component {
 
         return( 
             <div className='cards-container'>
-                {this.props.cards.map(item =>
-                    <Card 
-                        onSwipeLeft={this.onSwipeLeft} 
-                        onSwipeRight={this.onSwipeRight}
-                        item={item}
-                        key={item.index}>
-                    </Card>
-                )}
+                {this.populateCards()}
                 <div className='vote-bar'>
                     <button onClick={this.onSwipeLeft} className={hgreen}> YES </button>
                     <button onClick={this.onSwipeRight} className={hred}> NO </button>
@@ -64,7 +69,11 @@ class Cards extends Component {
 }
 
 function mapStateToProps(state) {
-    return { cards: state.cards.items }
+    return { cards: state.cards }
 }
+/*
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ swipeCard: swipeCard }, dispatch);
+}*/
 
 export default connect(mapStateToProps)(Cards);

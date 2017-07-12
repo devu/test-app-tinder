@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Cards from '../containers/cards';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { showCards } from '../actions/index'
 
-export default class App extends Component {
+class App extends Component {
 
   constructor(props) {
       super(props);
@@ -15,8 +17,11 @@ export default class App extends Component {
       this.onEnd = this.onEnd.bind(this);
   }
 
+  componentDidMount(){
+    this.props.showCards();
+  }
+
   onEnd() {
-    console.log('The End')
     this.setState({ ended: true });
   }
 
@@ -42,3 +47,10 @@ export default class App extends Component {
     );
   }
 }
+
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ showCards: showCards }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(App);
